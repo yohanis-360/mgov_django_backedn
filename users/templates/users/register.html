@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007BFF;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input:focus,
+        select:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .cancel-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .cancel-link:hover {
+            text-decoration: underline;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-label input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Registration</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="full_name">Full Name:</label>
+            {{ form.full_name }}
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            <label for="password1">Password:</label>
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            <label for="password2">Password Confirmation:</label>
+            {{ form.password2 }}
+        </div>
+        <div class="form-group">
+            <label for="mobile_number">Mobile Number:</label>
+            {{ form.mobile_number }}
+        </div>
+        <div class="form-group">
+            <label for="country">Country:</label>
+            {{ form.country }}
+        </div>
+        <div class="form-group">
+            <label for="date_of_birth">Date of Birth:</label>
+            {{ form.date_of_birth }}
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            {{ form.gender }}
+        </div>
+        <div class="form-group">
+            <label for="captcha">Captcha:</label>
+            {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <div class="error-message">{{ form.captcha.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group checkbox-label">
+            {{ form.agree_to_terms }} 
+            <label for="agree_to_terms">I agree to the terms and conditions</label>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <a class="cancel-link" href="/">Cancel</a>
+</body>
+</html>

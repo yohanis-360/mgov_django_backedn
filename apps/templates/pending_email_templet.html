@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Submission Pending</title>
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Full width blue background container */
+        .blue-background {
+            width: 100%;
+            height: 200px;
+            max-width: 1200px;
+            background-color: #1C39BB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        /* Image Styling - making the image scale with width */
+
+
+        /* Content Section Styling */
+        .content {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        /* Heading Styling */
+        h3 {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        /* Button Styling */
+        <!-- a {
+            padding: 10px 20px;
+            background-color: #1C39BB;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        } -->
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .blue-background {
+                height: 120px; /* Adjust height for smaller screens */
+            }
+
+           
+
+            h3 {
+                font-size: 1.2em; /* Smaller heading on mobile */
+            }
+
+            .content {
+                padding: 15px; /* Adjust padding on smaller screens */
+            }
+
+            a {
+                padding: 8px 16px; /* Adjust button padding on mobile */
+            }
+        }
+
+        /* Mobile Friendly adjustments */
+        @media (max-width: 480px) {
+            h3 {
+                font-size: 1em; /* Even smaller font on very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Full-width blue background with centered image -->
+    <div class="blue-background">
+        <img src="https://i.imgur.com/qPY0p7y.png" alt="App Icon">
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <h3>Hi {{ developer_name }}</h3>
+        <p>{{ message }}</p> 
+        <p>Thank you for contributing to the Government App Store. You can view and manage your app from your dashboard using the button below.</p>      
+    </div>
+    <p style="text-align: center;">
+        <a href="{{ button_url }}" style="padding: 10px 20px; background-color: #1C39BB; color: #FFFFFF; text-decoration: none; border-radius: 5px;">
+            {{ button_text }}
+        </a>
+    </p>
+    <div class="content">
+        <p>Sincerely</p>
+        <p>The Government App Store Team</p>
+    </div>
+</body>
+</html>
+

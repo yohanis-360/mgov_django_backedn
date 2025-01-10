@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit New App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="file"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submit New App</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="app_name">App Name:</label>
+            <input type="text" name="app_name" id="app_name" required value="{{ form.app_name.value }}">
+            {% if form.app_name.errors %}
+                <div class="error">
+                    {% for error in form.app_name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="app_version">App Version:</label>
+            <input type="text" name="app_version" id="app_version" required value="{{ form.app_version.value }}">
+            {% if form.app_version.errors %}
+                <div class="error">
+                    {% for error in form.app_version.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select name="category" id="category" required>
+                <option value="">Select a category</option>
+                <option value="Health" {% if form.category.value == "Health" %}selected{% endif %}>Health</option>
+                <option value="Education" {% if form.category.value == "Education" %}selected{% endif %}>Education</option>
+                <option value="Finance" {% if form.category.value == "Finance" %}selected{% endif %}>Finance</option>
+            </select>
+            {% if form.category.errors %}
+                <div class="error">
+                    {% for error in form.category.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="apk_file">APK File:</label>
+            <input type="file" name="apk_file" id="apk_file" required>
+            {% if form.apk_file.errors %}
+                <div class="error">
+                    {% for error in form.apk_file.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="app_icon">App Icon:</label>
+            <input type="file" name="app_icon" id="app_icon" required>
+            {% if form.app_icon.errors %}
+                <div class="error">
+                    {% for error in form.app_icon.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="cover_graphics">Cover Graphics:</label>
+            <input type="file" name="cover_graphics" id="cover_graphics" required>
+            {% if form.cover_graphics.errors %}
+                <div class="error">
+                    {% for error in form.cover_graphics.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="screenshots">App Screenshots:</label>
+            <input type="file" name="screenshots" id="screenshots" multiple required>
+            {% if form.screenshots.errors %}
+                <div class="error">
+                    {% for error in form.screenshots.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit">Submit App</button>
+    </form>
+</body>
+</html>

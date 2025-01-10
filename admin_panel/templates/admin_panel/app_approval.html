@@ -1,0 +1,21 @@
+<h1>Pending Apps</h1>
+<table>
+    <tr>
+        <th>App Name</th>
+        <th>Developer</th>
+        <th>Category</th>
+        <th>Actions</th>
+    </tr>
+    {% for app in apps %}
+    <tr>
+        <td>{{ app.app_name }}</td>
+        <td>{{ app.developer.username }}</td>
+        <td>{{ app.get_category_display }}</td>
+        <td>
+            <a href="{% url 'admin:approve_app' app.id %}">Approve</a> |
+            <a href="{% url 'admin:reject_app' app.id %}">Reject</a> |
+            <a href="{% url 'admin:request_revision' app.id %}">Request Revision</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

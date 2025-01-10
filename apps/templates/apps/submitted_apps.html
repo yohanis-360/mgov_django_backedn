@@ -1,0 +1,15 @@
+<h1>Your Submitted Apps</h1>
+<table>
+    <tr>
+        <th>App Name</th>
+        <th>Status</th>
+        <th>Feedback</th>
+    </tr>
+    {% for app in apps %}
+    <tr>
+        <td>{{ app.app_name }}</td>
+        <td>{{ app.get_status_display }}</td>
+        <td>{{ app.feedback }}</td>
+    </tr>
+    {% endfor %}
+</table>
