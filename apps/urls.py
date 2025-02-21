@@ -1,6 +1,6 @@
 # apps/urls.py
 from django.urls import path
-from .views import SubmitNewAppView,AppListView,submitted_apps,DeveloperAppsView,AppDetailView,AppListViewAll,AppDetailViewAll,increment_view_count,AppReviewView,AppSearchView
+from .views import SubmitNewAppView,AppListView,submitted_apps,DeveloperAppsView,AppDetailView,AppListViewAll,AppDetailViewAll,increment_view_count,AppReviewView,AppSearchView,UpdateAppView
 
 
 app_name = 'apps'  
@@ -16,7 +16,7 @@ urlpatterns = [
     path('submit/<int:id>/', SubmitNewAppView.as_view(), name='app_update'),  # For updates
     path('reviews/<int:app_id>/', AppReviewView.as_view(), name='app-reviews'),
     path('search/', AppSearchView.as_view(), name='app-search'),
-
+    path('update/<int:pk>/', UpdateAppView.as_view(), name='update-app'),
     
 ]
 

@@ -22,7 +22,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-def send_status_change_email(developer_email, app_name, old_status, new_status,developer_name):
+def send_status_change_email(developer_email, app_name, old_status, new_status,developer_name,admin_note):
     # Dynamic message content based on the new status
     if new_status == 'Approved':
         subject = f"Your app {app_name} has been approved"
@@ -32,7 +32,8 @@ def send_status_change_email(developer_email, app_name, old_status, new_status,d
             'message': "We are excited to inform you that your app submission has been successfully reviewed and approved! Congratulations on reaching this important milestone.",
             'button_text': 'Go to Your Dashboard',
             'button_url': 'http://localhost:3000/developer_portal/appstore',  # Replace with actual dashboard URL
-            'developer_name':developer_name
+            'developer_name':developer_name,
+            'admin_note': admin_note
         })
     elif new_status == 'Rejected':
         subject = f"Your app {app_name} has been rejected"
@@ -42,7 +43,8 @@ def send_status_change_email(developer_email, app_name, old_status, new_status,d
             'message': "We regret to inform you that your app submission has been rejected. Please review the feedback and resubmit once the issues are resolved.",
             'button_text': 'Go to Your Dashboard',
             'button_url': 'http://localhost:3000/developer_portal/appstore',  # Replace with actual dashboard URL
-            'developer_name':developer_name
+            'developer_name':developer_name,
+            'admin_note': admin_note
 
         })
     else:
@@ -53,7 +55,8 @@ def send_status_change_email(developer_email, app_name, old_status, new_status,d
             'message': "Your app submission is under review. We will notify you once the status changes.",
             'button_text': 'Go to Your Dashboard',
             'button_url': 'http://localhost:3000/developer_portal/appstore',  # Replace with actual dashboard URL
-            'developer_name':developer_name
+            'developer_name':developer_name,
+            'admin_note': admin_note
         })
     
     # Send email with HTML content
@@ -85,7 +88,8 @@ class AppAdmin(admin.ModelAdmin):
                     app_name=obj.app_name,
                     old_status=old_status,
                     new_status=new_status,
-                    developer_name=obj.developer
+                    developer_name=obj.developer,
+                    admin_note = obj.admin_note
                 )
         
         # Call the parent class's save method

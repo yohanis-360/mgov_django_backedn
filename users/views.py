@@ -10,11 +10,12 @@ from django.contrib.auth import login
 from .utils import send_email_otp
 from django.views.decorators.csrf import csrf_exempt
 from .models import User,Developer
+from django.http import JsonResponse,HttpResponse
 import json
 from django.contrib.auth import get_user_model
 from .utils import send_email_otp
 from django.http import JsonResponse
-from .serializer import UserRegistrationSerializer, DeveloperRegistrationSerializer
+from .serializer import UserRegistrationSerializer, DeveloperRegistrationSerializer,DeveloperSerializer
 import logging
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -348,11 +349,14 @@ class CustomLoginView(APIView):
 
         # Include developer status if the user is a developer
         if user.is_developer and hasattr(user, 'developer'):
+            developer = Developer.objects.get(user=user)
             response_data['user']['status'] = user.developer.status
+            response_data['developer_info'] = DeveloperSerializer(developer).data  # Include detailed developer info
 
         return Response(response_data, status=status.HTTP_200_OK)
-
+    
 
 # Home page view
 def home(request):
-    return render(request, 'home.html')  # Render home template
+    return HttpResponse('')
+  # Render home template

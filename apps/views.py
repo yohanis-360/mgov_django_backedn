@@ -257,3 +257,39 @@ class AppSearchView(APIView):
         serializer = AppSerializer(apps, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+from rest_framework.generics import UpdateAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.response import Response
+from rest_framework import status
+
+class UpdateAppView(UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
+    serializer_class = AppSerializer  # Assuming you have an AppSerializer
+
+    def get_queryset(self):
+        return App.objects.all()
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        
+        # Check if the user is the developer of the app
+        if instance.developer != request.user:
+            return Response({'detail': 'Access restricted. You are not the developer of this app.'}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            self.perform_update(serializer)
+
+            # Handle uploaded screenshots
+            screenshots = request.FILES.getlist('screenshots_upload')
+            if screenshots:
+                Screenshot.objects.filter(app=instance).delete()  # Clear existing screenshots
+                for screenshot in screenshots:
+                    Screenshot.objects.create(app=instance, screenshot=screenshot)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

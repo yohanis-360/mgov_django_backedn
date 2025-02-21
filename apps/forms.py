@@ -8,7 +8,7 @@ class AppSubmissionForm(forms.ModelForm):
         fields = [
             'app_name', 'app_version', 'category', 'supported_platforms', 'apk_file',
             'app_icon', 'cover_graphics', 'promotional_video',
-            'description', 'tags', 'privacy_policy_url', 'release_notes','ios_url','web_portal'
+            'description', 'tags', 'privacy_policy_url', 'release_notes','ios_url','web_portal','admin_note'
         ]
         widgets = { 'supported_platforms': forms.CheckboxSelectMultiple, }
         

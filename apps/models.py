@@ -15,7 +15,9 @@ class App(models.Model):
     STATUS_CHOICES = [
         ('Pending', 'Pending'),
         ('Approved', 'Approved'),
-        ('Rejected', 'Rejected')
+        ('Rejected', 'Rejected'),
+        ('Unpublished', 'Unpublished'),
+
     ]
 
     developer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -32,9 +34,10 @@ class App(models.Model):
     tags = models.CharField(max_length=255)
     privacy_policy_url = models.URLField()
     release_notes = models.TextField(blank=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     ios_url = models.URLField(blank=True, null=True)
+    admin_note = models.TextField(blank=True, null=True) # Admin note for approval/rejection
     web_portal = models.URLField(blank=True, null=True)
     view_count = models.IntegerField(default=0)
     

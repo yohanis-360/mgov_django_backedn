@@ -70,7 +70,7 @@ class AppSubmissionSerializer(serializers.ModelSerializer):
             'app_name', 'app_version', 'category', 'supported_platforms',
             'apk_file', 'app_icon', 'cover_graphics', 'promotional_video',
             'description', 'tags', 'privacy_policy_url', 'release_notes',
-            'ios_url', 'screenshots_upload','web_portal'
+            'ios_url', 'screenshots_upload','web_portal','admin_note'
         ]
 
     def create(self, validated_data):
